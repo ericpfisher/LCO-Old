@@ -1,22 +1,17 @@
 <?php
 
 include_once 'inc/db.inc.php';
+include_once 'inc/functions.inc.php';
 
 $db = new PDO(DB_INFO, DB_USER, DB_PASS);
 
-$sql = "SELECT kind, asset_tag, issues
-		FROM Loaners";
+$kind = (isset($_GET['kind'])) ? $_GET['kind'] : NULL;
 
-$stmt = $db->prepare($sql);
-$stmt->execute(array());
+$asset_tag = (isset($_GET['asset_tag'])) ? $_GET['asset_tag'] : NULL;
 
-$a = NULL;
+$l = getLoaners($db, $kind, $asset_tag);
 
-while($row = $stmt->fetch()){
-			
-	$a[] = $row;			
-
-}
+$display = array_pop($l);
 
 
 ?>
@@ -30,13 +25,49 @@ while($row = $stmt->fetch()){
 		</head>
 
 		<body>
-			<?php foreach($a as $loaner){
+			<?php 
+			if($display==2)
+			{
+			
+			$keys = array_keys($l);
+			
+			foreach($keys as $key){	
+				
+				
+			
+			
 ?>
 				
-				<p><?php echo $loaner['asset_tag'] ?></p>
+	<p><?php echo $key, " : ", $l[$key], "<br />" ?></p>			
 				
 <?php
-				   } ?>
+
+				} // ends foreach($l as $detail)
+			
+			} // ends if($display==2)
+
+			elseif($display==1)
+			{
+?>
+
+	# Insert code to display loaners by kind
+	
+<?php
+			} // ends if($display==1)
+			
+			else
+			{
+			foreach($l as $loaner){
+?>
+				
+			<a href="./index.php?asset_tag=<?php echo $loaner['asset_tag'] ?>"><?php echo $loaner['asset_tag'], "<br />" ?></a>	
+
+<?php
+				} // ends foreach($l as $loaner)
+
+			} // ends else				
+?>				   
+				<a href="./index.php">Back to Loaner List</a>
 
 		</body>
 </html>
