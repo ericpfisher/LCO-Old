@@ -1,11 +1,11 @@
 <?php
 
-function getLoaners($db, $kind=NULL, $asset_tag=NULL)
+function getLoaners($db, $kind=NULL, $asset_tag=NULL, $checked_in=NULL)
 {
 	if(isset($asset_tag))
 	{
 	
-	$sql = "SELECT id, kind, serial_num, os_version, issues, checked_in FROM Loaners WHERE asset_tag=?";
+	$sql = "SELECT id, kind, asset_tag, serial_num, os_version, issues, checked_in FROM Loaners WHERE asset_tag=?";
 	
 	$stmt = $db->prepare($sql);
 	$stmt->execute(array($asset_tag));
@@ -17,17 +17,17 @@ function getLoaners($db, $kind=NULL, $asset_tag=NULL)
 		$l[] = $row;
 		}
 		
-	$display = 2;
+	$display = "info";
 	
 	}
 	
-	elseif(isset($kind))
+	elseif(isset($checked_in))
 	{
 	
-	$sql = "SELECT id, asset_tag, serial_num, os_version, issues, checked_in FROM Loaners WHERE kind=?";
+	$sql = "SELECT id, asset_tag, serial_num, os_version, issues FROM Loaners WHERE checked_in=?";
 	
 	$stmt = $db->prepare($sql);
-	$stmt->execute(array($kind));
+	$stmt->execute(array($checked_in));
 	
 	$l = NULL;
 
@@ -36,7 +36,7 @@ function getLoaners($db, $kind=NULL, $asset_tag=NULL)
 		$l[] = $row;
 		}
 		
-	$display = 1;
+	$display = "checked";
 	
 	}
 	
@@ -55,13 +55,56 @@ function getLoaners($db, $kind=NULL, $asset_tag=NULL)
 		$l[] = $row;			
 
 		}
-	$display = 0;
+	$display = "list";
 	
 	}
 	
+	$stmt->closeCursor();
+
 	array_push($l, $display);
 	
 	return $l;
 }
+
+function getCheckouts($db, $asset_tag=NULL, $id=NULL)
+{
+	if((isset($asset_tag))&&(isset($id)))
+	{
+		$sql = "SELECT * FROM Entries WHERE id=?";
+
+		$stmt = $db->prepare($sql);
+		$stmt->execute(array($id));
+
+		$entries = NULL;
+
+		while($row = $stmt->fetch()){
+			$entries[] = $row;
+		} // ends "while"
+
+		$display = "checkout detail";
+	} // ends "if"
+
+	else
+	{
+		$sql = "SELECT * FROM Entries";
+		
+		$stmt = $db->prepare($sql);
+		$stmt->execute(array());
+		
+			$entries = NULL;
+		
+			while($row = $stmt->fetch()){
+				$entries[] = $row;
+			} // ends "while
+		
+		$display = "show all checkouts";
+	} // ends "else
+	
+	$stmt->closeCursor();
+
+	array_push($entries, $display);
+	
+	return $entries;
+} // ends "function"
 
 ?>
