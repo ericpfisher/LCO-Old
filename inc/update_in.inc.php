@@ -1,10 +1,13 @@
 <?php
 
+session_start();
 
 include_once 'functions.inc.php';
 
 if($_SERVER['REQUEST_METHOD']=='POST'
-	&& !empty($_POST['asset_tag']))
+	&& $_POST['submit']=='Check In Loaner'
+	&& !empty($_POST['asset_tag'])
+	)
 {
 	include_once 'db.inc.php';
 	$db = new PDO(DB_INFO, DB_USER, DB_PASS);
@@ -27,10 +30,10 @@ if($_SERVER['REQUEST_METHOD']=='POST'
 	$id_obj->closeCursor();
 
 // -------------------------------------------- END GET ID OF LATEST CHECKOUT BY ASSET TAG	
-	$time_sql = "UPDATE Entries SET checked_in=NOW() WHERE id=?";
+	$time_sql = "UPDATE Entries SET checked_in=NOW(), tech_in=? WHERE id=?";
 	
 	$time_stmt = $db->prepare($time_sql);
-	$time_stmt->execute(array($id));
+	$time_stmt->execute(array($_SESSION['username'], $id));
 	
 	$time_stmt->closeCursor();
 // -------------------------------------------- END UPDATE CHECKED IN TIMESTAMP

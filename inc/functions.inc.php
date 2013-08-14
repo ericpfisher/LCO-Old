@@ -127,4 +127,25 @@ function getCheckouts($db, $asset_tag=NULL, $id=NULL)
 	return $formatted_entries;
 } // ends function
 */
+
+function createUserForm()
+{
+	return <<<FORM
+<form action="inc/add_user.inc.php" method="post">
+	<fieldset>
+		<legend>Create a new user</legend>
+		<label>Username:
+			<input type="text" name="username" maxlength="75" />
+		</label>
+		<label>Password:
+			<input type="password" name="password" />
+		</label>
+		<input type="submit" name="submit" value="Create" />
+		<input type="submit" name="submit" value="Cancel" />
+		<input type="hidden" name="action" value="createuser" />
+	</fieldset>
+</form>
+FORM;
+		
+}
 ?>

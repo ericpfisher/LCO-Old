@@ -1,9 +1,9 @@
 <?php
 
-
 include_once 'functions.inc.php';
 
 if($_SERVER['REQUEST_METHOD']=='POST'
+	&& $_POST['submit']=='Checkout!'
 	&& !empty($_POST['first_name'])
 	&& !empty($_POST['last_name'])
 	&& !empty($_POST['user_ext'])
@@ -13,11 +13,11 @@ if($_SERVER['REQUEST_METHOD']=='POST'
 	include_once 'db.inc.php';
 	$db = new PDO(DB_INFO, DB_USER, DB_PASS);
 	
-	$sql = "INSERT INTO entries (first_name, last_name, user_ext, user_loc, asset_tag)
-			values (?, ?, ?, ?, ?)";
+	$sql = "INSERT INTO entries (first_name, last_name, user_ext, user_loc, asset_tag, tech_out)
+			values (?, ?, ?, ?, ?, ?)";
 			
 	$stmt = $db->prepare($sql);
-	$stmt->execute(array($_POST['first_name'], $_POST['last_name'], $_POST['user_ext'], $_POST['user_loc'], $_POST['asset_tag']));
+	$stmt->execute(array($_POST['first_name'], $_POST['last_name'], $_POST['user_ext'], $_POST['user_loc'], $_POST['asset_tag'], $_POST['tech']));
 	
 	$stmt->closeCursor();
 

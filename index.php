@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 include_once 'inc/db.inc.php';
 include_once 'inc/functions.inc.php';
 
@@ -47,11 +49,19 @@ else{
 	
 	<div id="menu">
 		<h3>LCO: Loaner Checkout</h3>
+<?php if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==1): ?>
+		<p style="font-size:12px">You are logged in as <?php echo $_SESSION['username'] ?></p>
+<?php endif; ?>
 		<ul id="menu_items">
 			<li><a href="./index.php?view=loaners&display=checked&checked_in=1">Available Loaners</a></li>
 			<li><a href="./index.php?view=loaners&display=checked&checked_in=0">Checked-Out Loaners</a></li>
 <!--		<li><a href="./index.php?view=loaners&display=list">All Loaners</a></li> -->
 			<li><a href="./index.php?view=checkouts">All Checkouts</a></li>
+			<li><a href="./admin.php">Admin</a></li>
+<?php 		if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==1): ?>
+			<li><a href="inc/login.inc.php?action=logout">Log Out</a></li>
+<?php endif; ?>
+
 		</ul>
 	</div>
 
@@ -75,7 +85,10 @@ if($_GET['view']=='loaners'){
 		<form method="post" action="inc/update_in.inc.php">
 			<input type="hidden" name="asset_tag" value="<?php echo $loaner['asset_tag'] ?>" />
 			<input type="hidden" name="checked_in" value="<?php echo $loaner['checked_in'] ?>" />
+<?php 	if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==1): ?>
+			<input type="hidden" name="tech" value="<?php echo $_SESSION['username'] ?>" /> 			
 			<input type="submit" name="submit" value="Check In Loaner" />
+<?php endif; ?>
 		</form>
 <?php
 		} // ends if($loaner['checked_in'])=="0"
@@ -84,7 +97,9 @@ if($_GET['view']=='loaners'){
 		<p style="color:green;font-size:20px">Loaner is available for checkout.<br /></p>
 		<form method="post" action="checkout.php">
 			<input type="hidden" name="loaner" value="<?php echo $loaner['asset_tag'] ?>" />
+<?php 	if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==1): ?>
 			<input type="submit" name="submit" value="Check Out Loaner" />
+<?php endif; ?>
 		</form>
 	</div>			
 <?php
@@ -152,11 +167,13 @@ elseif($_GET['view']=='checkouts') {
 ?>
 	<div id="content">
 		<h4>Checkout Details: Loaner <?php echo $entry['asset_tag'] ?></h4>
-		<p><?php echo "Checked out: " . date('F jS \a\t g:i A', strtotime($entry['checked_out']))?></p>
-		<p><?php echo "Checked in: " . date('F jS \a\t g:i A', strtotime($entry['checked_in']))?></p>
-		<p><?php echo "User: " . $entry['first_name'] . " " . $entry['last_name']?></p>
-		<p><?php echo "Extension: " . $entry['user_ext']?></p>
-		<p><?php echo "Location: " . $entry['user_loc']?></p>
+		<p><?php echo "Out: " . date('F jS \a\t g:i A', strtotime($entry['checked_out'])) . " by " . $entry['tech_out'] ?></p>
+<?php if($entry['checked_in']): ?>
+		<p><?php echo "In: " . date('F jS \a\t g:i A', strtotime($entry['checked_in'])) . " by " . $entry['tech_in'] ?></p>
+<?php endif; ?>
+		<p><?php echo "Who Took It: " . $entry['first_name'] . " " . $entry['last_name']?></p>
+		<p><?php echo "Their Extension: " . $entry['user_ext']?></p>
+		<p><?php echo "Their Location: " . $entry['user_loc']?></p>
 	</div>
 <?php
 
