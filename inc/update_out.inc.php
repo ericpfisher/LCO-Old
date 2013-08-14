@@ -13,39 +13,41 @@ if($_SERVER['REQUEST_METHOD']=='POST'
 	include_once 'db.inc.php';
 	$db = new PDO(DB_INFO, DB_USER, DB_PASS);
 	
-	$sql = "INSERT INTO entries (checked_out, first_name, last_name, user_ext, user_loc, asset_tag)
-			values (?, ?, ?, ?, ?, ?)";
+	$sql = "INSERT INTO entries (first_name, last_name, user_ext, user_loc, asset_tag)
+			values (?, ?, ?, ?, ?)";
 			
 	$stmt = $db->prepare($sql);
-	$stmt->execute(array(NOW(), $_POST['first_name'], $_POST['last_name'], $_POST['user_ext'], $_POST['user_loc'], $_POST['asset_tag']));
+	$stmt->execute(array($_POST['first_name'], $_POST['last_name'], $_POST['user_ext'], $_POST['user_loc'], $_POST['asset_tag']));
 	
 	$stmt->closeCursor();
-// ---------------------------------------------------- Ends INSERT Entry
-/*	$sql2 = "UPDATE Loaners SET checked_in=0 WHERE asset_tag=?";
+
+	$sql2 = "UPDATE Loaners SET checked_in=0 WHERE asset_tag=?";
 
 	$stmt2 = $db->prepare($sql2);
 	$stmt2->execute(array($_POST['asset_tag']));
 
 	$stmt2->closeCursor();
 	
-	$id_obj = $db->query("SELECT LAST_INSERT_ID() FROM Entries");
+	$get_id_sql = "SELECT LAST_INSERT_ID() FROM Entries LIMIT 1";
+
+	$id_obj = $db->prepare($get_id_sql);
+	$id_obj->execute();
 	$id = $id_obj->fetch();
 	$id_obj->closeCursor();
 	
 	$time_sql = "UPDATE Entries SET checked_out=NOW() WHERE ID=?";
 	
 	$time_stmt = $db->prepare($time_sql);
-	$time_stmt->execute(array($id));
+	$time_stmt->execute(array($id[0]));
 	
 	$time_stmt->closeCursor();
-*/	
-	header('Location: /LCO/index.php?view=loaners');
+	
+	header('Location: /LCO/index.php?view=loaners&display=checked&checked_in=1');
 	
 }
 else
 {
 	
-	header('Location: /LCO/index.php?view=loaners');
+	header('Location: /LCO/index.php?view=loaners&display=checked&checked_in=1');
 	
 }
-?>

@@ -24,7 +24,7 @@ function getLoaners($db, $kind=NULL, $asset_tag=NULL, $checked_in=NULL)
 	elseif(isset($checked_in))
 	{
 	
-	$sql = "SELECT id, asset_tag, serial_num, os_version, issues FROM Loaners WHERE checked_in=?";
+	$sql = "SELECT id, kind, asset_tag, serial_num, os_version, issues FROM Loaners WHERE checked_in=?";
 	
 	$stmt = $db->prepare($sql);
 	$stmt->execute(array($checked_in));
@@ -86,7 +86,7 @@ function getCheckouts($db, $asset_tag=NULL, $id=NULL)
 
 	else
 	{
-		$sql = "SELECT * FROM Entries";
+		$sql = "SELECT * FROM Entries ORDER BY checked_out DESC";
 		
 		$stmt = $db->prepare($sql);
 		$stmt->execute(array());
@@ -107,4 +107,24 @@ function getCheckouts($db, $asset_tag=NULL, $id=NULL)
 	return $entries;
 } // ends "function"
 
+/*function formatTime($db, $entries_list)
+{
+	foreach($entries_list as $entry)
+	{
+		$sql = "SELECT DATE_FORMAT(" . $entry['checked_out'] . ", 'Checked out on %a, %D %M %Y at %r')";
+
+		$stmt = $db->prepare($sql);
+		$stmt->execute(array());
+
+		$formatted_entries = NULL;
+
+		while($row = $stmt->fetch())
+		{
+			$formatted_entries[] = $row;
+		} // ends while($row = $stmt->fetch())
+	} // ends foreach($entries_list as $entry)
+
+	return $formatted_entries;
+} // ends function
+*/
 ?>
