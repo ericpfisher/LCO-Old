@@ -50,16 +50,18 @@ else{
 	<div id="menu">
 		<h3>LCO: Loaner Checkout</h3>
 <?php if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==1): ?>
-		<p style="font-size:12px">You are logged in as <?php echo $_SESSION['username'] ?></p>
+		<p style="font-size:14px">You are logged in as <?php echo $_SESSION['username'] ?></p>
+		<a href="inc/login.inc.php?action=logout">Log Out</a>
+<?php else: ?>
+		<a href="admin.php">Log In</a>
 <?php endif; ?>
 		<ul id="menu_items">
 			<li><a href="./index.php?view=loaners&display=checked&checked_in=1">Available Loaners</a></li>
 			<li><a href="./index.php?view=loaners&display=checked&checked_in=0">Checked-Out Loaners</a></li>
 <!--		<li><a href="./index.php?view=loaners&display=list">All Loaners</a></li> -->
 			<li><a href="./index.php?view=checkouts">All Checkouts</a></li>
-			<li><a href="./admin.php">Admin</a></li>
-<?php 		if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==1): ?>
-			<li><a href="inc/login.inc.php?action=logout">Log Out</a></li>
+<?php if(isset($_SESSION['username']) && $_SESSION['username']=='admin'): ?>
+			<li><a href="./admin.php">Add New Tech</a></li>
 <?php endif; ?>
 
 		</ul>
