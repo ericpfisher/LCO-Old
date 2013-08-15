@@ -107,26 +107,31 @@ function getCheckouts($db, $asset_tag=NULL, $id=NULL)
 	return $entries;
 } // ends "function"
 
-/*function formatTime($db, $entries_list)
+function searchCheckouts($db, $search_params=NULL)
 {
-	foreach($entries_list as $entry)
+	if(isset($search_params))
 	{
-		$sql = "SELECT DATE_FORMAT(" . $entry['checked_out'] . ", 'Checked out on %a, %D %M %Y at %r')";
+		$params_array = explode($search_params);
+	}
+	else
+	{
+		break;
+	}
 
-		$stmt = $db->prepare($sql);
-		$stmt->execute(array());
-
-		$formatted_entries = NULL;
-
-		while($row = $stmt->fetch())
+	for($i = 0; $i < count($params_array); $i++)
+	{
+		if($i==0 || $i==(count($params_array) - 1)
 		{
-			$formatted_entries[] = $row;
-		} // ends while($row = $stmt->fetch())
-	} // ends foreach($entries_list as $entry)
+			$params_string = $params_array[$i];
+		}
+		else
+		{
+			$params_string = "|" . $params_array[$i] . "|";
+		}
+	}
 
-	return $formatted_entries;
-} // ends function
-*/
+	
+}
 
 function createUserForm()
 {
@@ -146,6 +151,6 @@ function createUserForm()
 	</fieldset>
 </form>
 FORM;
-		
+
 }
 ?>

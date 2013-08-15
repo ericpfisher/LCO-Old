@@ -162,7 +162,7 @@ if($_GET['view']=='loaners'){
 } // ends if $_GET['view']=='loaners'
 
 elseif($_GET['view']=='checkouts') {
-	if($display=="checkout detail")
+/*	if($display=="checkout detail")
 	{
 		$entry = $l[0];
 		
@@ -192,6 +192,20 @@ elseif($_GET['view']=='checkouts') {
 		} // ends foreach($l as $entry)
 	} // ends else
 } // ends elseif($_GET['view']=='checkouts')
+*/
+
+echo <<<EOT
+<div id="content">
+<form method="post" action="index.php?view=checkouts">
+	<label>Search Checkouts:
+		<input type="text" name="search_params"/>
+		<input type="submit" name="submit" value="Go!" />
+	</label>
+</form>
+</div>
+EOT;
+}
+
 ?>				
 	</div>
 
