@@ -60,7 +60,7 @@ else{
 			<li><a href="./index.php?view=loaners&display=checked&checked_in=0">Checked-Out Loaners</a></li>
 <!--		<li><a href="./index.php?view=loaners&display=list">All Loaners</a></li> -->
 			<li><a href="./index.php?view=checkouts">All Checkouts</a></li>
-<?php if(isset($_SESSION['username']) && $_SESSION['username']=='admin'): ?>
+<?php if(isset($_SESSION['username']) && $_SESSION['username']=='lcoadmin'): ?>
 			<li><a href="./admin.php">Add New Tech</a></li>
 <?php endif; ?>
 
