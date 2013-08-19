@@ -1,18 +1,52 @@
-div {
-	
+body {
+	font-family: Helvetica, sans-serif;
 }
 
-#menu {
-	float: left;
+div#menu {
 	position: fixed;
-	width: 200px;
-	height: 200px;
+	z-index: 1;
+}
 
+#header {
+	margin-top: -30px;
 }
 
 #content {
-	width: 300px;
+	width: 400px;
 	position: relative;
-	margin-left: 200px;
-	padding-top: 30px;
+	margin-left: 300px;
+	margin-top: 50px;
 }
+
+ul#menu {
+	width:250px;
+	margin:0 auto;
+	list-style:none;
+	float: left;
+}
+
+fieldset {
+	width: 400px;
+}
+
+input[type=text], input[type=password], textarea {
+	font-size:95%;
+	display:block;
+	width:370px;
+	margin:0 auto 10px;
+	padding:4px;
+}
+
+.button {
+   border-top: 1px solid #5c545c;
+   background: #5e5c5e;
+   padding: 3px 6px;
+   border-radius: 2px;
+   box-shadow: rgba(0,0,0,1) 0 1px 0;
+   text-shadow: rgba(0,0,0,.4) 0 1px 0;
+   color: #f4f4f7;
+   font-size: 11px;
+   font-family: Helvetica, Arial, Sans-Serif;
+   text-decoration: none;
+   vertical-align: middle;
+  }

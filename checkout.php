@@ -22,36 +22,40 @@ $loaner = (isset($_POST['loaner'])) ? $_POST['loaner'] : "Didn't GET that...haha
 	
 	<body>
 		<div id="menu">
-		<h3>LCO: Loaner Checkout</h3>
-<?php if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==1): ?>
-		<p style="font-size:12px">You are logged in as <?php echo $_SESSION['username'] ?></p>
-<?php endif; ?>
-		<ul id="menu_items">
-			<li><a href="./index.php?view=loaners&display=checked&checked_in=1">Available Loaners</a></li>
-			<li><a href="./index.php?view=loaners&display=checked&checked_in=0">Checked-Out Loaners</a></li>
-			<li><a href="./index.php?view=checkouts">All Checkouts</a></li>
-<!--		<li><a href="./index.php?view=loaners&display=list">All Loaners</a></li> -->
-			<li><a href="./admin.php">Admin</a></li>
-<?php 		if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==1): ?>
-			<li><a href="inc/login.inc.php?action=logout">Log Out</a></li>
-<?php endif; ?>
-		</ul>
-	</div>
+			<h3 id="header">LCO: Loaner Checkout</h3>
+			
+			<ul id="menu">
+			<?php if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==1): ?>
+				<li><p style="font-size:12px">You are logged in as <?php echo $_SESSION['username'] ?>!</p></li>
+				<li><a class="button" href="inc/login.inc.php?action=logout">Log Out</a></li><br />
+			<?php else: ?>
+				<li><a class="button" href="admin.php">Log In</a></li><br />
+			<?php endif; ?>
+				<li><a class="button" href="./index.php?view=loaners&display=checked&checked_in=1">Available Loaners</a></li><br />
+				<li><a class="button" href="./index.php?view=loaners&display=checked&checked_in=0">Checked-Out Loaners</a></li><br />
+			<!--<li><a href="./index.php?view=loaners&display=list">All Loaners</a></li> -->
+				<li><a class="button" href="./index.php?view=checkouts">Search Checkouts</a></li><br />
+			<?php if(isset($_SESSION['username']) && $_SESSION['username']=='lcoadmin'): ?>
+				<li><a class="button" href="./admin.php">Add New Tech</a></li>
+			<?php endif; ?>
+			<?php if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==1): ?>
+				<br /><a class="button" href="./feedback.php">Submit Feedback</a>
+			<?php endif; ?>
+			</ul>
+		</div>
 	
-	<div id="content">
-		<form method="post" action="inc/update_out.inc.php">
-			<label>First Name:<input type="text" name="first_name" maxlength="35" /></label><br />
-			<label>Last Name:<input type="text" name="last_name" maxlength="35" /></label><br />
-			<label>Extension:<input type="text" name="user_ext" maxlength="4" /></label><br />
-			<label>Location:<input type="text" name="user_loc" maxlength="6" value="" /></label><br /><br />
-			<input type="hidden" name="asset_tag" value="<?php echo $loaner ?>" />
-			<input type="hidden" name="tech" value="<?php echo $_SESSION['username'] ?>" />
-			<input type="submit" name="submit" value="Checkout!" />
-			<input type="submit" name="submit" value="Cancel" />
-		</form>
-
-		<a href="./index.php?view=loaners&display=checked&checked_in=1">Back to Available Loaners</a>
-	</div>
+		<div id="content">
+			<form method="post" action="inc/update_out.inc.php">
+				<label>First Name:<input type="text" name="first_name" placeholder="First" maxlength="35" /></label><br />
+				<label>Last Name:<input type="text" name="last_name" placeholder="Last" maxlength="35" /></label><br />
+				<label>Extension:<input type="text" name="user_ext" placeholder="1234" maxlength="4" /></label><br />
+				<label>Location:<input type="text" name="user_loc" placeholder="5.123" maxlength="10" value="" /></label><br /><br />
+				<input type="hidden" name="asset_tag" value="<?php echo $loaner ?>" />
+				<input type="hidden" name="tech" value="<?php echo $_SESSION['username'] ?>" />
+				<input type="submit" name="submit" value="Checkout!" onclick="confirm('Are you sure?');"/>
+				<input type="submit" name="submit" value="Cancel" />
+			</form>
+		</div>
 
 	</body>
 </html>

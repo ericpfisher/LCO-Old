@@ -5,57 +5,57 @@ function getLoaners($db, $kind=NULL, $asset_tag=NULL, $checked_in=NULL)
 	if(isset($asset_tag))
 	{
 	
-	$sql = "SELECT id, kind, asset_tag, serial_num, os_version, issues, checked_in FROM Loaners WHERE asset_tag=?";
+		$sql = "SELECT id, kind, asset_tag, serial_num, os_version, issues, checked_in FROM Loaners WHERE asset_tag=?";
 	
-	$stmt = $db->prepare($sql);
-	$stmt->execute(array($asset_tag));
+		$stmt = $db->prepare($sql);
+		$stmt->execute(array($asset_tag));
 	
-	$l = NULL;
+		$l = NULL;
 
-		while($row = $stmt->fetch()){
-			
-		$l[] = $row;
+		while($row = $stmt->fetch())
+		{
+			$l[] = $row;
 		}
 		
-	$display = "info";
+		$display = "info";
 	
 	}
 	
 	elseif(isset($checked_in))
 	{
 	
-	$sql = "SELECT id, kind, asset_tag, serial_num, os_version, issues FROM Loaners WHERE checked_in=?";
+		$sql = "SELECT id, kind, asset_tag, serial_num, os_version, issues FROM Loaners WHERE checked_in=?";
 	
-	$stmt = $db->prepare($sql);
-	$stmt->execute(array($checked_in));
+		$stmt = $db->prepare($sql);
+		$stmt->execute(array($checked_in));
 	
-	$l = NULL;
+		$l = NULL;
 
-		while($row = $stmt->fetch()){
-			
-		$l[] = $row;
+		while($row = $stmt->fetch())
+		{
+			$l[] = $row;
 		}
 		
-	$display = "checked";
+		$display = "checked";
 	
 	}
 	
 	else
 	{
 	
-	$sql = "SELECT id, kind, asset_tag, checked_in FROM Loaners";
+		$sql = "SELECT id, kind, asset_tag, checked_in FROM Loaners";
 	
-	$stmt = $db->prepare($sql);
-	$stmt->execute(array());
+		$stmt = $db->prepare($sql);
+		$stmt->execute(array());
 	
 		$l = NULL;
 
-		while($row = $stmt->fetch()){
-			
-		$l[] = $row;			
-
+		while($row = $stmt->fetch())
+		{
+			$l[] = $row;			
 		}
-	$display = "list";
+	
+		$display = "list";
 	
 	}
 	
@@ -77,7 +77,8 @@ function getCheckouts($db, $asset_tag=NULL, $id=NULL)
 
 		$entries = NULL;
 
-		while($row = $stmt->fetch()){
+		while($row = $stmt->fetch())
+		{
 			$entries[] = $row;
 		} // ends "while"
 
@@ -93,7 +94,8 @@ function getCheckouts($db, $asset_tag=NULL, $id=NULL)
 		
 			$entries = NULL;
 		
-			while($row = $stmt->fetch()){
+			while($row = $stmt->fetch())
+			{
 				$entries[] = $row;
 			} // ends "while
 		
@@ -109,18 +111,15 @@ function getCheckouts($db, $asset_tag=NULL, $id=NULL)
 
 function searchCheckouts($db, $search_params=NULL)
 {
-	if(isset($search_params))
-	{
-		$params_array = explode($search_params);
-	}
-	else
-	{
-		break;
-	}
+	if(isset($search_params)):
+	
+		$params_array = explode(", ",$search_params);
+	
+	endif;
 
 	for($i = 0; $i < count($params_array); $i++)
 	{
-		if($i==0 || $i==(count($params_array) - 1)
+		if($i==0 || $i==(count($params_array) - 1))
 		{
 			$params_string = $params_array[$i];
 		}
@@ -130,7 +129,28 @@ function searchCheckouts($db, $search_params=NULL)
 		}
 	}
 
-	
+	$sql = "SELECT * FROM Entries WHERE first_name REGEXP '$params_string'
+			UNION
+			SELECT * FROM Entries WHERE last_name REGEXP '$params_string'
+			UNION
+			SELECT * FROM Entries WHERE asset_tag REGEXP '$params_string'
+			UNION
+			SELECT * FROM Entries WHERE tech_out REGEXP '$params_string'
+			UNION
+			SELECT * FROM Entries WHERE tech_in REGEXP '$params_string'";
+
+	$stmt = $db->prepare($sql);
+	$stmt->execute();
+
+	while($row = $stmt->fetch())
+	{
+		$search_results[] = $row;
+	}
+
+	$stmt->closeCursor();
+
+	return $search_results;
+
 }
 
 function createUserForm()
