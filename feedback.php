@@ -46,15 +46,15 @@ function spamFilter($from_email)
 			<?php else: ?>
 				<li><a class="button" href="admin.php">Log In</a></li><br />
 			<?php endif; ?>
-				<li><a class="button" href="./index.php?view=loaners&display=checked&checked_in=1">Available Loaners</a></li><br />
-				<li><a class="button" href="./index.php?view=loaners&display=checked&checked_in=0">Checked-Out Loaners</a></li><br />
-			<!--<li><a href="./index.php?view=loaners&display=list">All Loaners</a></li> -->
-				<li><a class="button" href="./index.php?view=checkouts">Search Checkouts</a></li><br />
+				<li><a class="button" href="./index.php?view=loaners&display=checked&checked_in=1">Loaners</a></li><br />
+			<!--<li><a class="button" href="./index.php?view=loaners&display=checked&checked_in=0">Checked-Out Loaners</a></li><br />
+				<li><a href="./index.php?view=loaners&display=list">All Loaners</a></li> -->
+				<li><a class="button" href="./index.php?view=checkouts">Search Checkouts</a></li>
 			<?php if(isset($_SESSION['username']) && $_SESSION['username']=='lcoadmin'): ?>
 				<li><a class="button" href="./admin.php">Add New Tech</a></li>
 			<?php endif; ?>
 			<?php if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==1): ?>
-				<a class="button" href="./feedback.php">Submit Feedback</a>
+				<br /><a class="button" href="./feedback.php">Submit Feedback</a>
 			<?php endif; ?>
 				<br /><br /><li><p style="font-size:16px;text-decoration:underline;">Available Loaners</p></li>
 				<li><p style="font-size:14px;">Macs: <?php echo $mac_count[0] ?></p></li>

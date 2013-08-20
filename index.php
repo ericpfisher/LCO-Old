@@ -9,24 +9,26 @@ date_default_timezone_set('America/Chicago');
 
 $db = new PDO(DB_INFO, DB_USER, DB_PASS);
 
-$kind = (isset($_GET['kind'])) ? $_GET['kind'] : NULL;
-
 $asset_tag = (isset($_GET['asset_tag'])) ? $_GET['asset_tag'] : NULL;
-
-$id = (isset($_GET['id'])) ? $_GET['id'] : NULL;
-
-$checked_in = (isset($_GET['checked_in'])) ? $_GET['checked_in'] : NULL;
 
 list($mac_count, $pc_count) = loanerCount($db);
 
 if($_GET['view']=='loaners')
 {
+	$kind = (isset($_GET['kind'])) ? $_GET['kind'] : NULL;
+
+	$checked_in = (isset($_GET['checked_in'])) ? $_GET['checked_in'] : NULL;
+
 	$l = getLoaners($db, $kind, $asset_tag, $checked_in);
+
 	$display = array_pop($l);	
 }	
 elseif($_GET['view']=='checkouts')
 {
+	$id = (isset($_GET['id'])) ? $_GET['id'] : NULL;
+
 	$l = getCheckouts($db, $asset_tag, $id);
+
 	$display = array_pop($l);
 
 	if(isset($_POST['search_params']))
@@ -67,9 +69,9 @@ else
 			<?php else: ?>
 				<li><a class="button" href="admin.php">Log In</a></li><br />
 			<?php endif; ?>
-				<li><a class="button" href="./index.php?view=loaners&display=checked&checked_in=1">Available Loaners</a></li><br />
-				<li><a class="button" href="./index.php?view=loaners&display=checked&checked_in=0">Checked-Out Loaners</a></li><br />
-			<!--<li><a href="./index.php?view=loaners&display=list">All Loaners</a></li> -->
+				<li><a class="button" href="./index.php?view=loaners&display=checked&checked_in=1">Loaners</a></li><br />
+			<!--<li><a class="button" href="./index.php?view=loaners&display=checked&checked_in=0">Checked-Out Loaners</a></li><br />
+				<li><a href="./index.php?view=loaners&display=list">All Loaners</a></li> -->
 				<li><a class="button" href="./index.php?view=checkouts">Search Checkouts</a></li>
 			<?php if(isset($_SESSION['username']) && $_SESSION['username']=='lcoadmin'): ?>
 				<br /><li><a class="button" href="./admin.php">Add New Tech</a></li>
@@ -119,7 +121,7 @@ else
 			{
 ?>	<!--- START HTML -->
 				<script type="text/javascript">
-					alert('Heads up: this loaner is currently checked out!');
+					alert('NOTICE: this loaner is currently checked out!');
 				</script>	
 				<p style="color:red;font-size:20px">Loaner is currently checked out.<br /></p>
 				<form method="post" action="inc/update_in.inc.php">
@@ -153,6 +155,27 @@ else
 ?>	<!--- START HTML -->
 			<div id="content">
 				<h4>Select A Loaner</h4>
+				<form name="loaner_select" method="get">
+					<input type="hidden" name="view" value="<?php echo $_GET['view'] ?>"/>
+					<input type="hidden" name="display" value="checked" />
+					<input type="radio" id="in" name="checked_in" value="1" onclick="this.form.submit();"/>Checked In
+					<input type="radio" id="out" name="checked_in" value="0" onclick="this.form.submit();" />Checked Out
+					<script>
+    					var checked_in = getQueryVariable("checked_in");
+
+    					var in_button = document.getElementById("in");
+    					var out_button = document.getElementById("out");
+
+    					if(checked_in==0)
+    					{
+    						out_button.checked = true;
+    					}
+    					else
+    					{
+    						in_button.checked = true;
+    					}
+					</script>
+				</form>
 				<form action="./index.php" method="get">
 					<input type="hidden" name="view" value="<?php echo $_GET['view'] ?>" />
 					<input type="hidden" name="display" value="info" />
@@ -266,5 +289,6 @@ EOT;
 				<a href="./index.php?view=loaners&display=checked&checked_in=0">Checked-Out Loaners</a><p>		</p>   
 				<a href="./index.php?view=loaners&display=list">All Loaners</a>
 -->
+
 	</body>
 </html>
