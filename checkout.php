@@ -36,7 +36,7 @@ elseif($_POST['submit']=='Edit Loaner Info')
 	
 	<body>
 		<div id="menu">
-			<a id="header_link" href="./index.php?view=loaners&display=checked&checked_in=1"><h3 id="header">LCO: Loaner Checkout</h3></a>
+			<a id="header_link" href="./index.php?view=loaners&display=checked&checked_in=1"><h2 id="header">LCO: Loaner Checkout</h2></a>
 			
 			<ul id="menu">
 			<?php if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==1): ?>
@@ -80,7 +80,7 @@ elseif($_POST['submit']=='Edit Loaner Info')
 				<label>Kind:<input type="text" name="kind" placeholder="Enter Mac or PC" value="<?php echo $loaner['kind'] ?>" /></label>
 				<label>Serial:<input type="text" name="serial_num" placeholder="Enter Serial Number" value="<?php echo $loaner['serial_num'] ?>" /></label>
 				<label>OS:<input type="text" name="os_version" placeholder="Enter OS Version" value="<?php echo $loaner['os_version'] ?>" /></label>
-				<label>Issues:<textarea name="issues" placeholder="Enter Known Issues" rows="7" columns="40"><?php echo $loaner['issues'] ?></textarea></label>
+				<label>Issues:<textarea name="issues" placeholder="Enter Known Issues" rows="7" columns="40" maxlength="250"><?php echo $loaner['issues'] ?></textarea></label>
 				<input type="hidden" name="id" value="<?php echo $loaner['id'] ?>" />
 				<input type="submit" name="submit" value="Save Changes" onclick="return areYouSure('Are you sure you wish to save changes?')" />
 				<input type="submit" name="submit" value="Cancel" />

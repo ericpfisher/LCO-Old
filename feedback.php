@@ -37,7 +37,7 @@ function spamFilter($from_email)
 	<body>
 			
 		<div id="menu">
-			<a id="header_link" href="./index.php?view=loaners&display=checked&checked_in=1"><h3 id="header">LCO: Loaner Checkout</h3></a>
+			<a id="header_link" href="./index.php?view=loaners&display=checked&checked_in=1"><h2 id="header">LCO: Loaner Checkout</h2></a>
 
 			<ul id="menu">
 			<?php if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==1): ?>

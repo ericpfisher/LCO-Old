@@ -58,7 +58,7 @@ else
 	<body>
 			
 		<div id="menu">
-			<a id="header_link" href="./index.php?view=loaners&display=checked&checked_in=1"><h3 id="header">LCO: Loaner Checkout</h3></a>
+			<a id="header_link" href="./index.php?view=loaners&display=checked&checked_in=1"><h2 id="header">LCO: Loaner Checkout</h2></a>
 
 			<ul id="menu">
 			<?php if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==1): ?>
@@ -91,11 +91,29 @@ else
 			$loaner = $l[0];			
 ?>	<!--- START HTML -->
 		<div id="content">	
-		<h4>Loaner Detail: <?php echo $loaner['asset_tag'] ?></h4>	
-		<p><?php echo "Kind: " . $loaner['kind']?></p>
-	   	<p><?php echo "Serial: " . $loaner['serial_num']?></p>
+	<h3>Loaner Detail: <?php echo $loaner['asset_tag'] ?></h3><br />	
+		<p><?php echo "Mac or PC?: " . $loaner['kind']?></p>
+	   	<p><?php echo "Serial Number: " . $loaner['serial_num']?></p>
 	   	<p><?php echo "OS Version: " . $loaner['os_version']?></p>
-	   	<p><?php echo "Issues: " . $loaner['issues']?></p>	
+	   	<p><?php echo "Issues: " . $loaner['issues']?></p><br />
+
+<!--	   	Testing out displaying loaner info in a table.  Don't think I like it. 
+<table border="1">
+	   		<caption>Loaner Detail</caption>
+	   		<tr>
+	   			<th>Asset Tag</th>
+	   			<th>Kind</th>
+	   			<th>Serial Number</th>
+	   			<th>Operating System</th>
+	   		</tr>
+	   		<tr>
+	   			<td><?php echo $loaner['asset_tag'] ?></td>
+	   			<td><?php echo $loaner['kind'] ?></td>
+	   			<td><?php echo $loaner['serial_num'] ?></td>
+	   			<td><?php echo $loaner['os_version'] ?></td>
+	   		</tr>
+	   	</table>
+	   	<br /><p><?php echo "Issues: " . $loaner['issues']?></p> -->
 <?php
 			if(($loaner['checked_in'])=="0")
 			{
