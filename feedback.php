@@ -2,6 +2,13 @@
 
 session_start();
 
+include_once 'inc/db.inc.php';
+include_once 'inc/functions.inc.php';
+
+$db = new PDO(DB_INFO, DB_USER, DB_PASS);
+
+list($mac_count, $pc_count) = loanerCount($db);
+
 function spamFilter($from_email)
 {
 	$from_email = filter_var($from_email, FILTER_SANITIZE_EMAIL);
@@ -30,7 +37,7 @@ function spamFilter($from_email)
 	<body>
 			
 		<div id="menu">
-			<h3 id="header">LCO: Loaner Checkout</h3>
+			<a id="header_link" href="./index.php?view=loaners&display=checked&checked_in=1"><h3 id="header">LCO: Loaner Checkout</h3></a>
 
 			<ul id="menu">
 			<?php if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==1): ?>
@@ -47,8 +54,11 @@ function spamFilter($from_email)
 				<li><a class="button" href="./admin.php">Add New Tech</a></li>
 			<?php endif; ?>
 			<?php if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==1): ?>
-				<br /><a class="button" href="./feedback.php">Submit Feedback</a>
+				<a class="button" href="./feedback.php">Submit Feedback</a>
 			<?php endif; ?>
+				<br /><br /><li><p style="font-size:16px;text-decoration:underline;">Available Loaners</p></li>
+				<li><p style="font-size:14px;">Macs: <?php echo $mac_count[0] ?></p></li>
+				<li><p style="font-size:14px;">PCs: <?php echo $pc_count[0] ?></p></li>
 			</ul>
 		</div>
 <?php
@@ -99,10 +109,10 @@ else
 		<form method="post" action="feedback.php">
 			<fieldset>
 				<label>Your Email:
-					<input type="text" name="from_email" />
+					<input type="email" name="from_email" placeholder="you@example.com"/>
 				</label><br />
 				<label>Subject:
-					<input type="text" name="subject" />
+					<input type="text" name="subject" placeholder="Some Title"/>
 				</label><br />
 				<label>Feedback:
 					<textarea name="message" rows="7" columns="40"></textarea>

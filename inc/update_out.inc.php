@@ -45,6 +45,23 @@ if($_SERVER['REQUEST_METHOD']=='POST'
 	header('Location: /LCO/index.php?view=loaners&display=checked&checked_in=1');
 	
 }
+elseif($_SERVER['REQUEST_METHOD']=='POST'
+	&& $_POST['submit']=='Save Changes'
+	&& !empty($_POST['asset_tag']))
+{
+	include_once 'db.inc.php';
+
+	$db = new PDO(DB_INFO, DB_USER, DB_PASS);
+
+	$sql = "UPDATE Loaners SET kind=?, asset_tag=?, serial_num=?, os_version=?, issues=? WHERE id=?";
+
+	$stmt = $db->prepare($sql);
+	$stmt->execute(array($_POST['kind'], $_POST['asset_tag'], $_POST['serial_num'], $_POST['os_version'], $_POST['issues'], $_POST['id']));
+
+	$stmt->closeCursor();
+
+	header('Location: /LCO/index.php?view=loaners&display=checked&checked_in=1');
+}
 else
 {
 	

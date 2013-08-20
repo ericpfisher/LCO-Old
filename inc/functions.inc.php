@@ -1,5 +1,22 @@
 <?php
 
+function loanerCount($db)
+{
+	$mac_sql = "SELECT COUNT(*) FROM Loaners WHERE kind='Mac' AND checked_in=1";
+	$pc_sql = "SELECT COUNT(*) FROM Loaners WHERE kind='PC' AND checked_in=1";
+
+	$mac_sql_obj = $db->query($mac_sql);
+	$mac_count = $mac_sql_obj->fetch();
+	$mac_sql_obj->closeCursor();
+
+	$pc_sql_obj = $db->query($pc_sql);
+	$pc_count = $pc_sql_obj->fetch();
+	$pc_sql_obj->closeCursor();
+
+	return array($mac_count, $pc_count);
+
+}
+
 function getLoaners($db, $kind=NULL, $asset_tag=NULL, $checked_in=NULL)
 {
 	if(isset($asset_tag))

@@ -29,7 +29,7 @@ fieldset {
 	width: 400px;
 }
 
-input[type=text], input[type=password], textarea {
+input[type=text], input[type=password], input[type=email], textarea {
 	font-size:95%;
 	display:block;
 	width:370px;
@@ -49,4 +49,19 @@ input[type=text], input[type=password], textarea {
    font-family: Helvetica, Arial, Sans-Serif;
    text-decoration: none;
    vertical-align: middle;
+  }
+
+  #header_link {
+  	text-decoration: none;
+  	color: black;
+  }
+
+  #header_link:visited {
+  	text-decoration: none;
+  	color: black;
+  }
+
+  #header_link:hover {
+  	text-decoration: none;
+  	color:gray;
   }

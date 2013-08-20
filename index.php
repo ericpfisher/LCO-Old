@@ -17,6 +17,8 @@ $id = (isset($_GET['id'])) ? $_GET['id'] : NULL;
 
 $checked_in = (isset($_GET['checked_in'])) ? $_GET['checked_in'] : NULL;
 
+list($mac_count, $pc_count) = loanerCount($db);
+
 if($_GET['view']=='loaners')
 {
 	$l = getLoaners($db, $kind, $asset_tag, $checked_in);
@@ -56,7 +58,7 @@ else
 	<body>
 			
 		<div id="menu">
-			<h3 id="header">LCO: Loaner Checkout</h3>
+			<a id="header_link" href="./index.php?view=loaners&display=checked&checked_in=1"><h3 id="header">LCO: Loaner Checkout</h3></a>
 
 			<ul id="menu">
 			<?php if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==1): ?>
@@ -68,13 +70,16 @@ else
 				<li><a class="button" href="./index.php?view=loaners&display=checked&checked_in=1">Available Loaners</a></li><br />
 				<li><a class="button" href="./index.php?view=loaners&display=checked&checked_in=0">Checked-Out Loaners</a></li><br />
 			<!--<li><a href="./index.php?view=loaners&display=list">All Loaners</a></li> -->
-				<li><a class="button" href="./index.php?view=checkouts">Search Checkouts</a></li><br />
+				<li><a class="button" href="./index.php?view=checkouts">Search Checkouts</a></li>
 			<?php if(isset($_SESSION['username']) && $_SESSION['username']=='lcoadmin'): ?>
-				<li><a class="button" href="./admin.php">Add New Tech</a></li>
+				<br /><li><a class="button" href="./admin.php">Add New Tech</a></li>
 			<?php endif; ?>
 			<?php if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==1): ?>
 				<br /><a class="button" href="./feedback.php">Submit Feedback</a>
 			<?php endif; ?>
+				<br /><br /><li><p style="font-size:16px;text-decoration:underline;">Available Loaners</p></li>
+				<li><p style="font-size:14px;">Macs: <?php echo $mac_count[0] ?></p></li>
+				<li><p style="font-size:14px;">PCs: <?php echo $pc_count[0] ?></p></li>
 			</ul>
 		</div>
 
@@ -116,7 +121,7 @@ else
 				<form method="post" action="checkout.php">
 					<input type="hidden" name="loaner" value="<?php echo $loaner['asset_tag'] ?>" />
 				<?php 	if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==1): ?>
-					<input type="submit" name="submit" value="Check Out Loaner" onclick="return areYouSure('Check out this loaner?')"/>
+					<input type="submit" name="submit" value="Check Out Loaner" />
 					<input type="submit" name="submit" value="Edit Loaner Info" />
 				<?php endif; ?>
 				</form>
