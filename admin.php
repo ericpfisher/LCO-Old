@@ -13,6 +13,7 @@ include_once 'inc/functions.inc.php';
 	<head>
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 		<link type="text/css" rel="stylesheet" href="css/default.css"/>
+		<script src="inc/functions.inc.js"></script>
 		<title> LCO </title>
 	</head>
 

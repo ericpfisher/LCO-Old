@@ -18,6 +18,7 @@ $loaner = (isset($_POST['loaner'])) ? $_POST['loaner'] : "Didn't GET that...haha
 			content="text/html;charset=utf-8" />
 		<link type="text/css" rel="stylesheet" href="css/default.css"/>
 		<title> LCO </title>
+		<script src="inc/functions.inc.js"></script>
 	</head>
 	
 	<body>
@@ -52,7 +53,7 @@ $loaner = (isset($_POST['loaner'])) ? $_POST['loaner'] : "Didn't GET that...haha
 				<label>Location:<input type="text" name="user_loc" placeholder="5.123" maxlength="10" value="" /></label><br /><br />
 				<input type="hidden" name="asset_tag" value="<?php echo $loaner ?>" />
 				<input type="hidden" name="tech" value="<?php echo $_SESSION['username'] ?>" />
-				<input type="submit" name="submit" value="Checkout!" onclick="confirm('Are you sure?');"/>
+				<input type="submit" name="submit" value="Checkout!" onclick="return areYouSure('Checkout this loaner?')"/>
 				<input type="submit" name="submit" value="Cancel" />
 			</form>
 		</div>

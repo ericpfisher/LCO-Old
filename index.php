@@ -50,6 +50,7 @@ else
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 		<link type="text/css" rel="stylesheet" href="css/default.css"/>
 		<title> LCO </title>
+		<script src="inc/functions.inc.js"></script>
 	</head>
 
 	<body>
@@ -103,7 +104,7 @@ else
 					<input type="hidden" name="checked_in" value="<?php echo $loaner['checked_in'] ?>" />
 				<?php 	if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==1): ?>
 					<input type="hidden" name="tech" value="<?php echo $_SESSION['username'] ?>" /> 			
-					<input type="submit" name="submit" value="Check In Loaner" onclick="confirm('Are you sure you want to check this loaner in?');" />
+					<input type="submit" name="submit" value="Check In Loaner" onclick="return areYouSure('Check in this loaner?')" />
 				<?php endif; ?>
 				</form>
 <?php
@@ -115,7 +116,7 @@ else
 				<form method="post" action="checkout.php">
 					<input type="hidden" name="loaner" value="<?php echo $loaner['asset_tag'] ?>" />
 				<?php 	if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==1): ?>
-					<input type="submit" name="submit" value="Check Out Loaner" />
+					<input type="submit" name="submit" value="Check Out Loaner" onclick="return areYouSure('Check out this loaner?')"/>
 					<input type="submit" name="submit" value="Edit Loaner Info" />
 				<?php endif; ?>
 				</form>

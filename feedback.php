@@ -24,6 +24,7 @@ function spamFilter($from_email)
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 		<link type="text/css" rel="stylesheet" href="css/default.css"/>
 		<title> LCO </title>
+		<script src="inc/functions.inc.js"></script>
 	</head>
 
 	<body>
@@ -106,7 +107,7 @@ else
 				<label>Feedback:
 					<textarea name="message" rows="7" columns="40"></textarea>
 				</label><br />
-				<input type="submit" name="submit" value="Send Feedback" onclick="confirm('Are you sure you wish to submit feedback?')" />
+				<input type="submit" name="submit" value="Send Feedback" onclick="return areYouSure('Submit feedback?')" />
 				<input type="submit" name="submit" value="Cancel" />
 			</fieldset>
 		</form>
