@@ -159,6 +159,8 @@ function searchCheckouts($db, $search_params=NULL)
 	$stmt = $db->prepare($sql);
 	$stmt->execute();
 
+	$search_results = NULL;
+
 	while($row = $stmt->fetch())
 	{
 		$search_results[] = $row;

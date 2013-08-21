@@ -38,10 +38,12 @@ function spamFilter($from_email)
 			
 		<div id="menu">
 			<a id="header_link" href="./index.php?view=loaners&display=checked&checked_in=1"><h2 id="header">LCO: Loaner Checkout</h2></a>
+			<?php if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==1): ?>
+				<p style="font-size:12px">You are logged in as <?php echo $_SESSION['username'] ?>!</p><br />
+			<?php endif; ?>
 
 			<ul id="menu">
 			<?php if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==1): ?>
-				<li><p style="font-size:12px">You are logged in as <?php echo $_SESSION['username'] ?>!</p></li>
 				<li><a class="button" href="inc/login.inc.php?action=logout">Log Out</a></li><br />
 			<?php else: ?>
 				<li><a class="button" href="admin.php">Log In</a></li><br />

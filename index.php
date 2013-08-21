@@ -61,10 +61,12 @@ else
 			
 		<div id="menu">
 			<a id="header_link" href="./index.php?view=loaners&display=checked&checked_in=1"><h2 id="header">LCO: Loaner Checkout</h2></a>
+			<?php if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==1): ?>
+				<p style="font-size:12px">You are logged in as <?php echo $_SESSION['username'] ?>!</p><br />
+			<?php endif; ?>
 
 			<ul id="menu">
 			<?php if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==1): ?>
-				<li><p style="font-size:12px">You are logged in as <?php echo $_SESSION['username'] ?>!</p></li>
 				<li><a class="button" href="inc/login.inc.php?action=logout">Log Out</a></li><br />
 			<?php else: ?>
 				<li><a class="button" href="admin.php">Log In</a></li><br />
@@ -155,7 +157,7 @@ else
 ?>	<!--- START HTML -->
 			<div id="content">
 				<h4>Select A Loaner</h4>
-				<form name="loaner_select" method="get">
+				<form id="loaner_select_form" method="get">
 					<input type="hidden" name="view" value="<?php echo $_GET['view'] ?>"/>
 					<input type="hidden" name="display" value="checked" />
 					<input type="radio" id="in" name="checked_in" value="1" onclick="this.form.submit();"/>Checked In
@@ -179,14 +181,14 @@ else
 				<form action="./index.php" method="get">
 					<input type="hidden" name="view" value="<?php echo $_GET['view'] ?>" />
 					<input type="hidden" name="display" value="info" />
-					<select name="asset_tag">
+					<select id="loaner_select">
 <?php
 
 					foreach($l as $loaner)
 					{
 ?>	<!--- START HTML -->
 
-						<option value="<?php echo $loaner['asset_tag'] ?>"><?php echo $loaner['asset_tag'] . " - " . $loaner['kind'] ?></option>
+						<option id="loaner_select_items" value="<?php echo $loaner['asset_tag'] ?>"><?php echo $loaner['asset_tag'] . " - " . $loaner['kind'] ?></option>
 	
 <?php
 					} // ends foreach($l as $loaner)
@@ -266,14 +268,19 @@ EOT;
 		elseif(isset($_POST['search_params'])) 
 		{
 			echo "<div id=\"content\">";
-
-			foreach($checkout_search_result as $checkout_entry)
+			if($checkout_search_result)
 			{
+				foreach($checkout_search_result as $checkout_entry)
+				{
 ?>	<!--- START HTML -->
-				<a href="./index.php?view=checkouts&asset_tag=<?php echo $checkout_entry['asset_tag'] ?>&id=<?php echo $checkout_entry['id'] ?>" style="font-size:14px"><?php echo $checkout_entry['asset_tag'] . ": (" . date('F jS \a\t g:i A', strtotime($checkout_entry['checked_out'])) . ")<br /><br />" ?></a>
+					<a href="./index.php?view=checkouts&asset_tag=<?php echo $checkout_entry['asset_tag'] ?>&id=<?php echo $checkout_entry['id'] ?>" style="font-size:14px"><?php echo $checkout_entry['asset_tag'] . ": (" . date('F jS \a\t g:i A', strtotime($checkout_entry['checked_out'])) . ")<br /><br />" ?></a>
 <?php
-			} // ends foreach($checkout_search_result as $checkout_entry)
-
+				} // ends foreach($checkout_search_result as $checkout_entry)
+			} // ends if($checkout_search_result)
+			else
+			{
+				echo "<p style='padding-left:4em;'>No results to display. Try your search again.</p>";
+			}	
 		} // ends elseif(isset($_POST['search_params']))
 		else
 		{

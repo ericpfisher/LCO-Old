@@ -3,7 +3,7 @@
 include_once 'functions.inc.php';
 
 if($_SERVER['REQUEST_METHOD']=='POST'
-	&& $_POST['submit']=='Checkout!'
+	&& $_POST['submit']=='Checkout'
 	&& !empty($_POST['first_name'])
 	&& !empty($_POST['last_name'])
 	&& !empty($_POST['user_ext'])
