@@ -7,6 +7,8 @@ include_once 'inc/functions.inc.php';
 
 date_default_timezone_set('America/Chicago');
 
+sessionLimit();
+
 $db = new PDO(DB_INFO, DB_USER, DB_PASS);
 
 $asset_tag = (isset($_GET['asset_tag'])) ? $_GET['asset_tag'] : NULL;

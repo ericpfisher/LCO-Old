@@ -1,5 +1,16 @@
 <?php
 
+function sessionLimit() // found at http://stackoverflow.com/questions/520237/how-do-i-expire-a-php-session-after-30-minutes?lq=1
+{
+	if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1800)) // last request was more than 30 minutes ago
+	{
+    	session_unset();     // unset $_SESSION variable for the run-time 
+    	session_destroy();   // destroy session data in storage
+	}
+
+	$_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
+}
+
 function dbErrorOrClose($db_object, $query_result)
 {
 	if(!$query_result)

@@ -5,6 +5,8 @@ session_start();
 include_once 'inc/db.inc.php';
 include_once 'inc/functions.inc.php';
 
+sessionLimit();
+
 $db = new PDO(DB_INFO, DB_USER, DB_PASS);
 
 list($mac_count, $pc_count) = loanerCount($db);

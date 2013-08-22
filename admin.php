@@ -2,6 +2,10 @@
 
 session_start();
 
+include_once 'inc/functions.inc.php';
+
+sessionLimit();
+
 if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == 1):
 
 include_once 'inc/functions.inc.php';
