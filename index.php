@@ -159,7 +159,7 @@ else
 		{
 ?>	<!--- START HTML -->
 			<div id="content">
-				<h4>Select A Loaner</h4>
+				<h4>Select A Loaner:</h4>
 				<form id="loaner_select_form" method="get">
 					<input type="hidden" name="view" value="<?php echo $_GET['view'] ?>"/>
 					<input type="hidden" name="display" value="checked" />
@@ -253,7 +253,7 @@ EOT;
 		
 ?>	<!--- START HTML -->
 			<div id="content">
-				<h4>Checkout Details: Loaner <?php echo $entry['asset_tag'] ?></h4>
+				<h4>Checkout Details: Loaner <a id="link_to_detail" href="./index.php?view=loaners&display=checked&asset_tag=<?php echo $entry['asset_tag'] ?>&submit=View+Details"><?php echo $entry['asset_tag'] ?></a></h4>
 					<p><?php echo "Out: " . date('F jS \a\t g:i A', strtotime($entry['checked_out'])) ?></p>
 					<p><sub><?php echo "Checked out by: " . $entry['tech_out'] ?></sub></p>
 				<?php if($entry['checked_in']): ?>

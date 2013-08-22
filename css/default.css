@@ -51,17 +51,17 @@ input[type=text], input[type=password], input[type=email], textarea {
    vertical-align: middle;
   }
 
-  #header_link {
+  #header_link, #link_to_detail {
   	text-decoration: none;
   	color: black;
   }
 
-  #header_link:visited {
+  #header_link:visited, #link_to_detail:visited {
   	text-decoration: none;
   	color: black;
   }
 
-  #header_link:hover {
+  #header_link:hover, #link_to_detail:hover {
   	text-decoration: none;
   	color:gray;
   }
