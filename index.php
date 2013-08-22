@@ -180,8 +180,8 @@ else
 				</form>
 				<form action="./index.php" method="get">
 					<input type="hidden" name="view" value="<?php echo $_GET['view'] ?>" />
-					<input type="hidden" name="display" value="info" />
-					<select id="loaner_select">
+					<input type="hidden" name="display" value="<?php echo $display ?>" />
+					<select name="asset_tag">
 <?php
 
 					foreach($l as $loaner)
