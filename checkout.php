@@ -68,7 +68,7 @@ elseif($_POST['submit']=='Edit Loaner Info')
 				<label>First Name:<input type="text" name="first_name" placeholder="John" maxlength="35" /></label><br />
 				<label>Last Name:<input type="text" name="last_name" placeholder="Smith" maxlength="35" /></label><br />
 				<label>Extension:<input type="text" name="user_ext" placeholder="1234" maxlength="4" /></label><br />
-				<label>Location:<input type="text" name="user_loc" placeholder="5.123" maxlength="10" value="" /></label><br /><br />
+				<label>Location:<input type="text" name="user_loc" placeholder="5.123" maxlength="10" /></label><br /><br />
 				<input type="hidden" name="asset_tag" value="<?php echo $loaner ?>" />
 				<input type="hidden" name="tech" value="<?php echo $_SESSION['username'] ?>" />
 				<input type="submit" name="submit" value="Checkout" onclick="return areYouSure('Checkout this loaner?')"/>
