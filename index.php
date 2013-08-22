@@ -54,11 +54,12 @@ else
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 		<link type="text/css" rel="stylesheet" href="css/default.css"/>
 		<title> LCO </title>
-		<script src="inc/functions.inc.js"></script>
+		<script src="inc/functions.inc.js">
+		</script>
 	</head>
 
 	<body>
-			
+	
 		<div id="menu">
 			<a id="header_link" href="./index.php?view=loaners&display=checked&checked_in=1"><h2 id="header">LCO: Loaner Checkout</h2></a>
 			<?php if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==1): ?>
@@ -296,6 +297,10 @@ EOT;
 				<a href="./index.php?view=loaners&display=checked&checked_in=0">Checked-Out Loaners</a><p>		</p>   
 				<a href="./index.php?view=loaners&display=list">All Loaners</a>
 -->
-
+		<script>
+			<?php if(isset($_SESSION['status'])): ?>
+				alert("<?php echo $_SESSION['status'] ?>");
+			<?php $_SESSION['status']=NULL; endif; ?>
+		</script>
 	</body>
 </html>

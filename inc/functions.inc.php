@@ -1,5 +1,19 @@
 <?php
 
+function dbErrorOrClose($db_object, $query_result)
+{
+	if(!$query_result)
+	{
+		die("Database error: " . print_r($db_object->errorInfo()));
+		$_SESSION['status'] = "Database error.  Contact your administrator.";
+		header('Location: /LCO/index.php?view=loaners&display=checked&checked_in=1');
+	}
+	else
+	{
+		$db_object->closeCursor();
+	}
+}
+
 function loanerCount($db)
 {
 	$mac_sql = "SELECT COUNT(*) FROM Loaners WHERE kind='Mac' AND checked_in=1";

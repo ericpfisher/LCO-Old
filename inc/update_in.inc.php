@@ -37,6 +37,8 @@ if($_SERVER['REQUEST_METHOD']=='POST'
 	
 	$time_stmt->closeCursor();
 // -------------------------------------------- END UPDATE CHECKED IN TIMESTAMP
+
+	$_SESSION['status'] = "Loaner checked in successfully!";
 	header('Location: /LCO/index.php?view=loaners&display=checked&checked_in=1');
 } // ends if
 

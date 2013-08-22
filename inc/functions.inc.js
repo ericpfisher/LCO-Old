@@ -20,4 +20,3 @@ function getQueryVariable(variable) // found in comments at http://www.onlineasp
 	} 
 	return false; 
 }
-
