@@ -124,10 +124,7 @@ else
 <?php
 			if(($loaner['checked_in'])=="0")
 			{
-?>	<!--- START HTML -->
-				<script type="text/javascript">
-					alert('NOTICE: this loaner is currently checked out!');
-				</script>	
+?>	<!--- START HTML -->	
 				<p style="color:red;font-size:20px">Loaner is currently checked out.<br /></p>
 				<form method="post" action="inc/update_in.inc.php">
 					<input type="hidden" name="asset_tag" value="<?php echo $loaner['asset_tag'] ?>" />
@@ -137,6 +134,9 @@ else
 					<input type="submit" name="submit" value="Check In Loaner" onclick="return areYouSure('Check in this loaner?')" />
 				<?php endif; ?>
 				</form>
+				<script type="text/javascript">
+					alert('NOTICE: this loaner is currently checked out!');
+				</script>
 <?php
 			} // ends if($loaner['checked_in'])=="0"
 			else

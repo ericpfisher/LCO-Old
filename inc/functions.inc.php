@@ -179,7 +179,8 @@ function searchCheckouts($db, $search_params=NULL)
 			UNION
 			SELECT * FROM Entries WHERE tech_out REGEXP '$params_string'
 			UNION
-			SELECT * FROM Entries WHERE tech_in REGEXP '$params_string'";
+			SELECT * FROM Entries WHERE tech_in REGEXP '$params_string'
+			ORDER BY checked_out DESC";
 
 	$stmt = $db->prepare($sql);
 	$stmt->execute();
