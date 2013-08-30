@@ -24,8 +24,6 @@ Planned updates:
 
 • Truncate older entries (thinking two months...)
 
-• Change labels to icons for easier recognition, e.g. replace "Mac" with an Apple logo
-
 • Make rewrite rules...pending UI changes (if the UI overhaul is too great, might not need to use a Rewrite engine)
 
 • Advanced search (?)
