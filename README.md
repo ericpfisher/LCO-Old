@@ -18,7 +18,7 @@ Planned updates:
 
 • Recent checkouts feed
 
-• User password change interface
+• User password-change interface
 
 • Salt passwords
 
