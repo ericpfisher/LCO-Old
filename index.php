@@ -62,13 +62,14 @@ else
 
 	<body>
 	
-		<div id="menu">
-			<a id="header_link" href="./index.php?view=loaners&display=checked&checked_in=1"><h2 id="header">LCO: Loaner Checkout</h2></a>
+		<a id="header_link" href="./index.php?view=loaners&display=checked&checked_in=1"><h2 id="header">LCO: Loaner Checkout</h2></a>
+
+		<div class="menu">
 			<?php if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==1): ?>
 				<p style="font-size:12px">You are logged in as <?php echo $_SESSION['username'] ?>!</p><br />
 			<?php endif; ?>
 
-			<ul id="menu">
+			<ul class="menu">
 			<?php if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==1): ?>
 				<li><a class="button" href="inc/login.inc.php?action=logout">Log Out</a></li><br />
 			<?php else: ?>

@@ -1,14 +1,10 @@
+
 body {
 	font-family: Helvetica, sans-serif;
 }
 
-div#menu {
+div .menu {
 	position: fixed;
-	z-index: 1;
-}
-
-#header {
-	margin-top: -30px;
 }
 
 #content {
@@ -18,11 +14,10 @@ div#menu {
 	margin-top: 50px;
 }
 
-ul#menu {
+ul.menu {
 	width:250px;
 	margin:0 auto;
 	list-style:none;
-	float: left;
 }
 
 fieldset {
@@ -64,4 +59,8 @@ input[type=text], input[type=password], input[type=email], textarea {
   #header_link:hover, #link_to_detail:hover {
   	text-decoration: none;
   	color:gray;
+  }
+
+a #header_link {
+   width: 240px; 
   }
