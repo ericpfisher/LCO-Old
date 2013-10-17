@@ -37,13 +37,13 @@ elseif($_POST['submit']=='Edit Loaner Info')
 	</head>
 	
 	<body>
-		<div id="menu">
+		<div class="menu">
 			<a id="header_link" href="./index.php?view=loaners&display=checked&checked_in=1"><h2 id="header">LCO: Loaner Checkout</h2></a>
 			<?php if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==1): ?>
 				<p style="font-size:12px">You are logged in as <?php echo $_SESSION['username'] ?>!</p><br />
 			<?php endif; ?>
 
-			<ul id="menu">
+			<ul class="menu">
 			<?php if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==1): ?>
 				<li><a class="button" href="inc/login.inc.php?action=logout">Log Out</a></li><br />
 			<?php else: ?>
@@ -53,7 +53,7 @@ elseif($_POST['submit']=='Edit Loaner Info')
 			<!--<li><a class="button" href="./index.php?view=loaners&display=checked&checked_in=0">Checked-Out Loaners</a></li><br />
 				<li><a href="./index.php?view=loaners&display=list">All Loaners</a></li> -->
 				<li><a class="button" href="./index.php?view=checkouts">Search Checkouts</a></li>
-			<?php if(isset($_SESSION['username']) && $_SESSION['username']=='lcoadmin'): ?>
+			<?php if(isset($_SESSION['username']) && $_SESSION['username']=='admin'): ?>
 				<li><a class="button" href="./admin.php">Add New Tech</a></li>
 			<?php endif; ?>
 			<?php if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==1): ?>

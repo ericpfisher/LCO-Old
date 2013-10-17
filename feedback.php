@@ -55,7 +55,7 @@ function spamFilter($from_email)
 			<!--<li><a class="button" href="./index.php?view=loaners&display=checked&checked_in=0">Checked-Out Loaners</a></li><br />
 				<li><a href="./index.php?view=loaners&display=list">All Loaners</a></li> -->
 				<li><a class="button" href="./index.php?view=checkouts">Search Checkouts</a></li>
-			<?php if(isset($_SESSION['username']) && $_SESSION['username']=='lcoadmin'): ?>
+			<?php if(isset($_SESSION['username']) && $_SESSION['username']=='admin'): ?>
 				<li><a class="button" href="./admin.php">Add New Tech</a></li>
 			<?php endif; ?>
 			<?php if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==1): ?>
