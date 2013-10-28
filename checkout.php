@@ -54,7 +54,7 @@ elseif($_POST['submit']=='Edit Loaner Info')
 				<li><a href="./index.php?view=loaners&display=list">All Loaners</a></li> -->
 				<li><a class="button" href="./index.php?view=checkouts">Search Checkouts</a></li>
 			<?php if(isset($_SESSION['username']) && $_SESSION['username']=='admin'): ?>
-				<li><a class="button" href="./admin.php">Add New Tech</a></li>
+				<br /><li><a class="button" href="./admin.php">Add New Tech</a></li>
 			<?php endif; ?>
 			<?php if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==1): ?>
 				<br /><a class="button" href="./feedback.php">Submit Feedback</a>
